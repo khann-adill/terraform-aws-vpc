@@ -1,10 +1,4 @@
 terraform {
-  backend "s3" {
-    bucket  = "statefiles-terra"
-    region  = "us-east-2"
-    key     = "vpc/terraform.tfstate"
-    profile = "admin"
-  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
