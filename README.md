@@ -1,7 +1,7 @@
 # terraform-aws-vpc
 ```
 module "vpc" {
-  source                 = "git::https://github.com/khann-adill/terraform-aws-vpc.git//modules/vpc"
+  source                 = "git::https://github.com/khann-adill/terraform-aws-vpc.git//module/vpc"
   name                   = "my-vpc"
   enable_nat_gateway     = true
   single_nat_gateway     = true
