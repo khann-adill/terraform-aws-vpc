@@ -1,4 +1,4 @@
-# terraform-aws-vpc
+# Play-with-terraform
 ### Calling VPC module
 ```
 module "vpc" {
