@@ -100,18 +100,38 @@ variable "db_password" {
   sensitive   = true
 }
 
+resource "aws_db_parameter_group" "that" {
+  name   = "mysql-paramgroup"
+  family = "mysql8.0"
+  parameter {
+    name  = "sort_buffer_size"
+    value = "2097152"
+  }
+}
 resource "aws_db_instance" "that" {
-  identifier             = "rds-dev"
-  instance_class         = "db.t2.micro"
-  allocated_storage      = 5
-  engine                 = "mysql"
-  engine_version         = "8.0.25"
-  username               = "pyrus"
-  password               = var.db_password
-  db_subnet_group_name   = aws_db_subnet_group.that.name
-  vpc_security_group_ids = [aws_security_group.that.id]
-  publicly_accessible    = false
-  skip_final_snapshot    = true
+  identifier                  = "rds-dev"
+  instance_class              = "db.t2.micro"
+  allocated_storage           = 5
+  max_allocated_storage       = 7
+  multi_az                    = true
+  storage_type                = "gp2"
+  name                        = "mysql8dev"
+  engine                      = "mysql"
+  engine_version              = "8.0.25"
+  username                    = "pyrus"
+  password                    = var.db_password
+  db_subnet_group_name        = aws_db_subnet_group.that.name
+  vpc_security_group_ids      = [aws_security_group.that.id]
+  parameter_group_name        = aws_db_parameter_group.that.name
+  publicly_accessible         = false
+  skip_final_snapshot         = true
+  auto_minor_version_upgrade  = true
+  allow_major_version_upgrade = false
+  apply_immediately           = false
+  maintenance_window          = "Sun:03:00-Sun:04:00"
+  copy_tags_to_snapshot       = true
+  monitoring_interval	      = 60
+  backup_retention_period     = 7
 }
 
 output "rds_hostname" {
