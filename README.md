@@ -44,3 +44,29 @@ module "ebs-volume" {
   }
 }
 ```
+
+### Calling DB Parameter group module
+```
+module "db_params" {
+  source          = "git::https://github.com/khann-adill/terraform-aws-vpc.git//module/db_parameters"
+  family          = "mysql8.0"
+  name            = "mysqldbparam"
+  use_name_prefix = "true"
+  prefix_name     = "mysql"
+  description     = "db parameter for mysql db"
+  parameters = [
+    {
+      name  = "sort_buffer_size"
+      value = "2097152"
+    }
+  ]
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+    RDS         = "mysql-dev"
+  }
+}
+output "db_parameter_group_id" {
+  value = module.db_params.db_parameter_group_id
+}
+```
