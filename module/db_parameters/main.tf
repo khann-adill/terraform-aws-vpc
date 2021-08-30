@@ -25,12 +25,6 @@ resource "aws_db_parameter_group" "that" {
       apply_method = lookup(parameter.value, "apply_method", null)
     }
   }
-  tags = merge(
-    var.tags,
-    {
-      "Name" = var.name
-    },
-  )
   lifecycle {
     create_before_destroy = true
   }
