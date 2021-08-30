@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
-    }
-  }
-  required_version = ">= 0.14.9"
-}
-
-provider "aws" {
-  region  = "ap-south-1"
-  profile = "admin"
-}
-
 locals{
   name        = var.use_name_prefix && var.create ? null : var.name
   name_prefix = var.use_name_prefix ? "${var.name}-" : null
@@ -25,6 +10,12 @@ resource "aws_db_parameter_group" "that" {
   description = local.description
   name_prefix = local.name_prefix
   family      = var.family
+  tags = merge(
+    {
+      "Name" = format("%s", var.name)
+    },
+    var.tags,
+  )
 
   dynamic "parameter" {
     for_each = var.parameters
