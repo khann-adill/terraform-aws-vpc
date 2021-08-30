@@ -7,7 +7,6 @@ variable "create" {
 variable "name" {
   description = "The name of the DB parameter group"
   type        = string
-  #default     = "pyrus"
 }
 
 variable "use_name_prefix" {
@@ -19,31 +18,21 @@ variable "use_name_prefix" {
 variable "prefix_name" {
   description = "prefix name"
   type        = string
-  #default     = "pyrus"
 }
 
 variable "description" {
   description = "The description of the DB parameter group"
   type        = string
-  default     = ""
 }
 
 variable "family" {
   description = "The family of the DB parameter group"
   type        = string
-  #default     = "mysql8.0"
 }
 
 variable "parameters" {
   description = "A list of DB parameter maps to apply"
   type        = list(map(string))
-  #default     = [
-	{ 
-	  name = "sort_buffer_size"
-	  value = "2097152"
-	}
-     ]
-}
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
