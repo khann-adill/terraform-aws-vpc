@@ -16,7 +16,12 @@ resource "aws_db_parameter_group" "that" {
     },
     var.tags,
   )
-
+  parameters = [
+                {
+                  name = "sort_buffer_size"
+                  value = "2097152"
+                }
+        ]
   dynamic "parameter" {
     for_each = var.parameters
     content {
