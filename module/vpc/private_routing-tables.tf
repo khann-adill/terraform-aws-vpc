@@ -1,5 +1,4 @@
 resource "aws_route_table" "Private-Subnet-RT" {
-  #count  = var.create_vpc && length(var.private_subnets) > 0 && var.one_nat_gateway_per_az ? length(var.private_subnets) : 1
   count  = var.create_vpc && length(var.private_subnets) = 0 ? 0 : var.one_nat_gateway_per_az ? length(var.private_subnets) : 1
   vpc_id = local.vpc_id
   route {
